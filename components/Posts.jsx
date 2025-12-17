@@ -16,20 +16,24 @@ const Posts = () => {
     queryKey: ["posts"],
     queryFn: fetchData,
     retry: 2,
-    staleTime: 5000 //will refetch only f previous fetch time was before 5sec;
+    staleTime: 5000, //will refetch only f previous fetch time was before 5sec;
   });
 
-
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p className="px-6 py-1 bg-blue-200 inline cursor-pointer transition-all  duration-100 rounded-full">Loading...</p>;
 
   if (isError) return <p>Error fetching...</p>;
 
   return (
-    <>
+    <div className="grid grid-cols-4 gap-2">
       {data?.map((d) => {
-        return <p key={d.id}>{d.title}</p>;
+        return (
+          <div className="bg-blue-200 max-w-sm rounded-lg p-1">
+            <h2 className="text-sm font-bold mb-1" key={d.id}>{d.title}</h2>
+            <p>{d.body}</p>
+          </div>
+        );
       })}
-    </>
+    </div>
   );
 };
 
