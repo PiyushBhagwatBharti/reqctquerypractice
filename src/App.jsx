@@ -33,7 +33,11 @@ function App() {
         { ...newPost, id: Date.now() },
       ]);
 
-      return {prevPosts}; //return pre state for the same reason
+      return { prevPosts }; //return pre state for the same reason
+    },
+
+    onError: (er, newPost, context) => {
+      queryClient.setQueryData(["posts"], context.prevPosts);
     },
   });
 
