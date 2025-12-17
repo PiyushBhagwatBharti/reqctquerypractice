@@ -27,13 +27,13 @@ function App() {
     // },
     onMutate: (newPost) => {
       queryClient.cancelQueries(["posts"]);
+      const prevPosts = queryClient.getQueryData(["posts"]); //save the previous state for error handeling
       queryClient.setQueryData(["posts"], (old) => [
         ...old,
         { ...newPost, id: Date.now() },
       ]);
-      const prevPosts = queryClient.getQueryData(["posts"]);
 
-      return prevPosts;
+      return {prevPosts}; //return pre state for the same reason
     },
   });
 
